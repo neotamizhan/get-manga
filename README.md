@@ -11,3 +11,6 @@ Features :
 * Multi Threaded downloads
 * Multiple chapter numbers can be specified.
 * Should work across OSs. Have tested this with both windows and mac osx. 
+
+Fill the params in the source code file and run the script as
+>ruby getmanga.rb
