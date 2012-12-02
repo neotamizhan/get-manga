@@ -16,7 +16,7 @@ class GetManga
     pp @params      
   end
 
-  def download   
+  def download!   
     chapters = chapter_range
     if chapters.to_a.size == 1
       puts "Downloading chapter #{chapters.first}"
@@ -96,9 +96,10 @@ class GetManga
     end
     threads.each {|aThread| aThread.join}      
   end 
+
 end
 
-GetManga.new.download
+GetManga.new.download!
 
 __END__
 site: http://www.mangareader.net
