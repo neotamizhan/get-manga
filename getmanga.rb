@@ -35,7 +35,7 @@ class GetManga
   end
 
 
-  def name 
+  def manga_name 
     @params['name'].downcase.gsub(/[^\d|\w| ]/,'').gsub(/ /,'-') #downcase the name, remove special chars and replace spaces with hyphen.
   end
 
@@ -54,7 +54,7 @@ class GetManga
   end  
 
   def get_image_url(page_url)
-    Nokogiri::HTML(open(page_url)).inner_html.match(/\<img.*src="(.*#{name}-\d+.jpg)/)[1]
+    Nokogiri::HTML(open(page_url)).inner_html.match(/\<img.*src="(.*#{manga_name}-\d+.jpg)/)[1]
   end
 
 	def download_image(src, dest)
@@ -71,7 +71,7 @@ class GetManga
 
   def download_chapter(chapter)
     puts "Downloading chapter #{chapter}"
-    url = "#{@params['site']}/#{name}/#{chapter}"
+    url = "#{@params['site']}/#{manga_name}/#{chapter}"
 
     # get total page numbers
     doc = Nokogiri::HTML(open(url))
@@ -80,7 +80,7 @@ class GetManga
     puts "total pages in chapter #{chapter} is #{pages}"
 
     # create folders if not available.
-    folder = File.join(@params['folder'],name,chapter.to_s)
+    folder = File.join(@params['folder'],manga_name,chapter.to_s)
     create_folder folder
 
     threads = []
