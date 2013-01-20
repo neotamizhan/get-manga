@@ -3,7 +3,6 @@ require 'nokogiri'
 require 'open-uri'
 require 'yaml'
 require "fileutils"
-require 'pp'
 
 class GetManga
 
@@ -13,7 +12,6 @@ class GetManga
   def initialize
     # Load @params and prepare
     @params = YAML::load(DATA)   
-    pp @params      
   end
 
   def download!   
@@ -35,7 +33,11 @@ class GetManga
   end
 
 
+<<<<<<< HEAD
   def manga_name 
+=======
+  def comic_name 
+>>>>>>> 60c9b8d846afbb1fcf67ac0cd8b5f8d639287a01
     @params['name'].downcase.gsub(/[^\d|\w| ]/,'').gsub(/ /,'-') #downcase the name, remove special chars and replace spaces with hyphen.
   end
 
@@ -54,7 +56,11 @@ class GetManga
   end  
 
   def get_image_url(page_url)
+<<<<<<< HEAD
     Nokogiri::HTML(open(page_url)).inner_html.match(/\<img.*src="(.*#{manga_name}-\d+.jpg)/)[1]
+=======
+    Nokogiri::HTML(open(page_url)).inner_html.match(/\<img.*src="(.*#{comic_name}-\d+.jpg)/)[1]
+>>>>>>> 60c9b8d846afbb1fcf67ac0cd8b5f8d639287a01
   end
 
 	def download_image(src, dest)
@@ -69,18 +75,28 @@ class GetManga
 		end
 	end
 
+  def page_count(url)        
+      Nokogiri::HTML(open(url)).inner_html.match(/<\/select> of (\d+)/)[1].to_i        
+  end
+    
   def download_chapter(chapter)
     puts "Downloading chapter #{chapter}"
+<<<<<<< HEAD
     url = "#{@params['site']}/#{manga_name}/#{chapter}"
+=======
+    url = "#{@params['site']}/#{comic_name}/#{chapter}"
+>>>>>>> 60c9b8d846afbb1fcf67ac0cd8b5f8d639287a01
 
     # get total page numbers
-    doc = Nokogiri::HTML(open(url))
-    pages = doc.inner_html.match(/<\/select> of (\d+)/)[1].to_i
-
+    pages = page_count url
     puts "total pages in chapter #{chapter} is #{pages}"
 
     # create folders if not available.
+<<<<<<< HEAD
     folder = File.join(@params['folder'],manga_name,chapter.to_s)
+=======
+    folder = File.join(@params['folder'],comic_name,chapter.to_s)
+>>>>>>> 60c9b8d846afbb1fcf67ac0cd8b5f8d639287a01
     create_folder folder
 
     threads = []
@@ -104,5 +120,5 @@ GetManga.new.download!
 __END__
 site: http://www.mangareader.net
 name: PSYCHIC ODAGIRI KYOUKO'S LIES
-chapter: 1-3
+chapter: 1
 folder: d:/temp/comics
