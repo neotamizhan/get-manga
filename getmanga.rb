@@ -33,11 +33,8 @@ class GetManga
   end
 
 
-<<<<<<< HEAD
-  def manga_name 
-=======
+
   def comic_name 
->>>>>>> 60c9b8d846afbb1fcf67ac0cd8b5f8d639287a01
     @params['name'].downcase.gsub(/[^\d|\w| ]/,'').gsub(/ /,'-') #downcase the name, remove special chars and replace spaces with hyphen.
   end
 
@@ -56,11 +53,7 @@ class GetManga
   end  
 
   def get_image_url(page_url)
-<<<<<<< HEAD
-    Nokogiri::HTML(open(page_url)).inner_html.match(/\<img.*src="(.*#{manga_name}-\d+.jpg)/)[1]
-=======
     Nokogiri::HTML(open(page_url)).inner_html.match(/\<img.*src="(.*#{comic_name}-\d+.jpg)/)[1]
->>>>>>> 60c9b8d846afbb1fcf67ac0cd8b5f8d639287a01
   end
 
 	def download_image(src, dest)
@@ -81,22 +74,15 @@ class GetManga
     
   def download_chapter(chapter)
     puts "Downloading chapter #{chapter}"
-<<<<<<< HEAD
-    url = "#{@params['site']}/#{manga_name}/#{chapter}"
-=======
     url = "#{@params['site']}/#{comic_name}/#{chapter}"
->>>>>>> 60c9b8d846afbb1fcf67ac0cd8b5f8d639287a01
 
     # get total page numbers
     pages = page_count url
     puts "total pages in chapter #{chapter} is #{pages}"
 
     # create folders if not available.
-<<<<<<< HEAD
-    folder = File.join(@params['folder'],manga_name,chapter.to_s)
-=======
     folder = File.join(@params['folder'],comic_name,chapter.to_s)
->>>>>>> 60c9b8d846afbb1fcf67ac0cd8b5f8d639287a01
+
     create_folder folder
 
     threads = []
@@ -119,6 +105,6 @@ GetManga.new.download!
 
 __END__
 site: http://www.mangareader.net
-name: PSYCHIC ODAGIRI KYOUKO'S LIES
+name: Liar Game
 chapter: 1
 folder: d:/temp/comics
